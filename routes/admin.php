@@ -1,6 +1,8 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\user\HelloController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/wel', [HelloController::class, 'index']);
 
