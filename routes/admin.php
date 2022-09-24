@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\HelloController;
 /*
@@ -14,5 +14,14 @@ use App\Http\Controllers\user\HelloController;
 |
 */
 
+Route::get('/fillable', [CrudController::class, 'getOffers']);
+
 Route::get('/wel', [HelloController::class, 'index']);
+
+Route::group(['prefix'=> 'offers'], function(){
+
+    Route::get('store', [CrudController::class, 'store']);
+
+    Route::get('create', [CrudController::class, 'create']);
+});
 

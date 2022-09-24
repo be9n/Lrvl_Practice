@@ -7,6 +7,9 @@
 
         <title>Laravel</title>
 
+        <link rel = " stylesheet " href = " https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+        
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
@@ -59,29 +62,28 @@
     <body>
         <div class="flex-center position-ref full-height">
 
-            @if (Route::has('login') && Auth::check())
-                <div class="top-right links">
-                    <a href="{{ url('/home') }}">Dashboard</a>
-                </div>
-            @elseif (Route::has('login') && !Auth::check())
-                <div class="top-right links">
-                    <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
-                </div>
-            @endif
-
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                <form>
+    
+    <div class = " form - group " >
+        <label for = " exampleInputEmail1 " > Offer Name </label >
+        <input type = " text " class = " form - control " name = " name " placeholder = " Enter email " >
+     </div >
+    <div class = " form - group " >
+        <label for = " exampleInput Password1 " > Offer Price </label >
+        <input type = " password " class = " form - control " name = " price " placeholder = " Password " >
+    </div >
+    <div class = " form - group " >
+        <label for = " exampleInput Password1 " > Offer Price </label >
+        <input type = " password " class = " form - control " name = " details " placeholder = " Password " >
+    </div >
+    <button type = " submit " class = " btn btn - primary " > Save Offer </button >
+</form >
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://codecasts.com.br">CODECASTS [pt-BR]</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/codecasts/laravel">GitHub</a>
+                    
                 </div>
             </div>
         </div>
