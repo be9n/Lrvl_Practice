@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 /*
@@ -19,3 +20,9 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::group(['prefix'=> 'offers'], function(){
+    //Route::get('store', [CrudController::class, 'store']);
+
+    Route::post('store', [CrudController::class, 'store'])->name('Offers.store');
+    Route::get('create', [CrudController::class, 'create']);
+});

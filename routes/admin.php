@@ -18,10 +18,5 @@ Route::get('/fillable', [CrudController::class, 'getOffers']);
 
 Route::get('/wel', [HelloController::class, 'index']);
 
-Route::group(['prefix'=> 'offers'], function(){
 
-    Route::get('store', [CrudController::class, 'store']);
-
-    Route::get('create', [CrudController::class, 'create']);
-});
 
