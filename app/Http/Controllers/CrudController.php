@@ -29,10 +29,6 @@ class CrudController extends Controller
     {
 
         // validate data before insert to database
-        /* $rules = [
-            'name' => 'required|max:100|unique:offers,name',
-            'price' => 'required|numeric',
-        ];*/
 
         $rules = $this->getRules();
         $messages = $this->getMessages();
@@ -40,7 +36,8 @@ class CrudController extends Controller
 
         if ($validator->fails()) {
             // return $validator->errors()->first();
-            return $validator->errors();
+           // return $validator->errors();
+           return redirect()->back()->withErrors($validator)->withInput($request->all());
         }
 
         //insert
@@ -49,13 +46,8 @@ class CrudController extends Controller
             'price' => $request->price,
             'detailes' => $request->detailes,
         ]);
-    }
-
-    protected function getMessages()
-    {
-        return $messages = [
-            'name.required' => "don't do this",
-        ];
+        
+        return redirect()->back()->with('success', 'The offer added successfully!!');
     }
 
     protected function getRules()
@@ -63,6 +55,14 @@ class CrudController extends Controller
         return $rules = [
             'name' => 'required|max:100|unique:offers,name',
             'price' => 'required|numeric',
+        ];
+    }
+
+    protected function getMessages()
+    {
+        return $messages = [
+            'name.required' => "Enter the name",
+            'price.required' => "Enter the price",
         ];
     }
 }

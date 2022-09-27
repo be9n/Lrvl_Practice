@@ -75,7 +75,11 @@
             <div class="title m-b-md">
                 Add your offer
             </div>
-
+            @if(Session::has('success'))
+            <div class="alert alert-primary" role="alert">
+                {{Session::get('success')}}
+            </div>
+            @endif
             <form method="POST" action="{{route('Offers.store')}}">
 
                 @csrf
@@ -84,14 +88,23 @@
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Offer name</label>
                     <input type="text" class="form-control" name="name" placeholder="name">
+                    @error('name')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Offer price</label>
                     <input type="text" class="form-control" name="price" placeholder="price">
+                    @error('price')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Offer detailes</label>
                     <input type="text" class="form-control" name="detailes" placeholder="detailes">
+                    @error('detailes')
+                    <small class="form-text text-danger">{{$message}}</small>
+                    @enderror
                 </div>
                 <button type="submit" class="btn btn-primary">Save Offer</button>
             </form>
