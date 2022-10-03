@@ -20,9 +20,12 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){
 Route::group(['prefix'=> 'offers'], function(){
     //Route::get('store', [CrudController::class, 'store']);
-
+    
+        Route::get('create', [CrudController::class, 'create']);
+    
     Route::post('store', [CrudController::class, 'store'])->name('Offers.store');
-    Route::get('create', [CrudController::class, 'create']);
+});
 });
