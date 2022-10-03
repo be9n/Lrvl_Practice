@@ -89,9 +89,7 @@
                 @endforeach
 
             </ul>
-            <a href="{{route('offers.create')}}">
-                <button type="button" class="btn btn-dark">Offer create</button>
-            </a>
+            <a type="button" class="btn btn-dark" href="{{route('offers.create')}}">create offers</a>
 
         </div>
         <form class="form-inline my-lg-0">
@@ -107,6 +105,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Detailes</th>
+                <th scope="col">Operation</th>
             </tr>
         </thead>
         <tbody>
@@ -116,6 +115,9 @@
                 <td>{{$offer->name}}</td>
                 <td>{{$offer->price}}</td>
                 <td>{{$offer->detailes}}</td>
+                <td>
+                    <a type="button" class="btn btn-dark" href="{{route('offers.edit',$offer->id)}}">Edit</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -89,9 +89,9 @@
       @endforeach 
       
     </ul>
-    
-    <a type="button" class="btn btn-dark" href="{{route('getAllOffers')}}">Show offers</a>
-    
+    <a href="{{route('getAllOffers')}}">
+    <button type="button" class="btn btn-dark" >Show offers</button>
+    </a>
   </div>
 </nav>
 
@@ -106,41 +106,33 @@
                 {{Session::get('success')}}
             </div>
             @endif
-            <form method="POST" action="{{route('Offers.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('offers.update', $offer-> id)}}">
 
                 @csrf
                 {{--<input name = "_token" value = "{{csrf_token()}}">--}}
 
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Enter a photo</label>
-                    <input type="file" class="form-control" name="photo" placeholder="Enter a photo">
-                    @error('photo')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Offer name</label>
-                    <input type="text" class="form-control" name="name" placeholder="name">
+                    <input type="text" class="form-control" name="name" placeholder="name" value='{{$offer->name}}'>
                     @error('name')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Offer price</label>
-                    <input type="text" class="form-control" name="price" placeholder="price">
+                    <input type="text" class="form-control" name="price" placeholder="price" value='{{$offer->price}}'>
                     @error('price')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Offer detailes</label>
-                    <input type="text" class="form-control" name="detailes" placeholder="detailes">
+                    <input type="text" class="form-control" name="detailes" placeholder="detailes" value='{{$offer->detailes}}'>
                     @error('detailes')
                     <small class="form-text text-danger">{{$message}}</small>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-primary">Save Offer</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
 
         </div>

@@ -26,6 +26,9 @@ Route::group(['prefix'=> 'offers'], function(){
     
         Route::get('create', [CrudController::class, 'create'])->name('offers.create');
         Route::get('all', [CrudController::class, 'getOffers'])->name('getAllOffers');
-    Route::post('store', [CrudController::class, 'store'])->name('Offers.store');
+        Route::post('store', [CrudController::class, 'store'])->name('Offers.store');
+
+        Route::get('edit/{offer_id}', [CrudController::class, 'editOffers'])->name('offers.edit');
+        Route::post('update/{offer_id}', [CrudController::class, 'updateOffers'])->name('offers.update');
 });
 });

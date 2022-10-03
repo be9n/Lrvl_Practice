@@ -32,7 +32,16 @@ class CrudController extends Controller
         }*/
 
         //insert
+
+        $file_extantion = $request->photo->getClientOriginalExtension();
+        $file_name = time().'.'.$file_extantion;
+        $path = 'images/offers';
+
+        $request->photo->move($path, $file_name);
+        
+
         Offer::create([
+            'photo' => $file_name,
             'name' => $request->name,
             'price' => $request->price,
             'detailes' => $request->detailes,
@@ -46,9 +55,25 @@ class CrudController extends Controller
       return view('offers.showOffers', compact('offers'));
     }
 
-   /* public function showOffers(){
+    public function editOffers($offer_id){
+        //Offer::findOrFail($offer_id);
 
-    }*/
+        $offer = Offer::find($offer_id);
+        if(!$offer)
+        return redirect()->back();
+
+        $Offer = Offer::select('name', 'price', 'detailes')->find($offer_id);
+        return view('offers.edit', compact('offer'));
+    }
+
+    public function updateOffers(OfferRequest $request, $offer_id){
+        $offer = Offer::find($offer_id);
+        if(!$offer)
+        return redirect()->back();
+
+        $offer -> update($request -> all());
+        return redirect()->back() -> with(['success' => 'oldu valla']);
+    }
 
     /*protected function getRules()
     {
