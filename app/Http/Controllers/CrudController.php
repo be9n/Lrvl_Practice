@@ -9,16 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class CrudController extends Controller
 {
-
-
-    public function getOffers()
-    {
-        // return Offer::get();
-        return Offer::select('id', 'name')->get();
-    }
-
-
-
     public function create()
     {
         return view('offers.create');
@@ -50,6 +40,15 @@ class CrudController extends Controller
         
         return redirect()->back()->with('success', 'The offer added successfully!!');
     }
+
+    public function getOffers(){
+      $offers = Offer::select()->get()->all();
+      return view('offers.showOffers', compact('offers'));
+    }
+
+   /* public function showOffers(){
+
+    }*/
 
     /*protected function getRules()
     {
