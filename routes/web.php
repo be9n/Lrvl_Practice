@@ -3,6 +3,8 @@
 use App\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OfferController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,8 +29,16 @@ Route::group(['prefix'=> 'offers'], function(){
         Route::get('create', [CrudController::class, 'create'])->name('offers.create');
         Route::get('all', [CrudController::class, 'getOffers'])->name('getAllOffers');
         Route::post('store', [CrudController::class, 'store'])->name('Offers.store');
-
+        Route::get('delete/{offer_id}', [CrudController::class, 'deleteOffers'])->name('offers.delete');
         Route::get('edit/{offer_id}', [CrudController::class, 'editOffers'])->name('offers.edit');
-        Route::post('update/{offer_id}', [CrudController::class, 'updateOffers'])->name('offers.update');
+        Route::post('update/{offer_id}', [CrudController::class, 'updateOffers'])->name('offers.update');       
 });
+Route::get('video', [CrudController::class, 'getVideo'])->middleware('auth');
+});
+
+
+################ Begin Ajax routes ################
+Route::group(['prefix' => 'ajaxOffers'], function(){
+    Route::get('create', [OfferController::class, 'create']);
+    Route::post('store', [OfferController::class, 'store'])->name('ajax.offers.store');
 });

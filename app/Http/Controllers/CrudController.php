@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VideoViewer;
 use App\Http\Requests\OfferRequest;
 use App\Models\Offer;
+use App\Models\Video;
+use App\Traits\OfferTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CrudController extends Controller
 {
+   
+    use OfferTrait;
+   
     public function create()
     {
         return view('offers.create');
     }
-
-
 
     public function store(OfferRequest $request)
     {
@@ -33,12 +37,7 @@ class CrudController extends Controller
 
         //insert
 
-        $file_extantion = $request->photo->getClientOriginalExtension();
-        $file_name = time().'.'.$file_extantion;
-        $path = 'images/offers';
-
-        $request->photo->move($path, $file_name);
-        
+       $file_name = $this->saveImage($request->photo, 'images/offers');
 
         Offer::create([
             'photo' => $file_name,
@@ -50,10 +49,24 @@ class CrudController extends Controller
         return redirect()->back()->with('success', 'The offer added successfully!!');
     }
 
+
+    //In OfferTrait!!
+   /* protected function saveImage($photo, $folder){
+        $file_extantion = $photo->getClientOriginalExtension();
+        $file_name = time().'.'.$file_extantion;
+        $path = $folder;
+
+        $photo->move($path, $file_name);
+        
+        return $file_name;
+    }*/ 
+
     public function getOffers(){
+        
       $offers = Offer::select()->get()->all();
       return view('offers.showOffers', compact('offers'));
     }
+
 
     public function editOffers($offer_id){
         //Offer::findOrFail($offer_id);
@@ -72,7 +85,24 @@ class CrudController extends Controller
         return redirect()->back();
 
         $offer -> update($request -> all());
-        return redirect()->back() -> with(['success' => 'oldu valla']);
+        return redirect()->back() -> with(['success' => 'Updated Successfully!!']);
+    }
+
+    public function deleteOffers($offer_id){
+        $offer = Offer::find($offer_id);
+        if(!$offer)
+        return redirect()->route('getAllOffers') -> with(['fail' => "There's no such offer!"]);
+
+        $offer -> delete();
+        return redirect()-> route('getAllOffers') -> with(['success' => 'The offer has been deleted successfully!!']);
+    }
+    
+
+    public function getVideo(){
+
+       $video = Video::first();
+       event(new VideoViewer($video));
+        return view('video')->with('video', $video);
     }
 
     /*protected function getRules()
