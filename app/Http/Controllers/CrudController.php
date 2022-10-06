@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Validator;
 
 class CrudController extends Controller
 {
-   
+
     use OfferTrait;
-   
+
     public function create()
     {
         return view('offers.create');
@@ -45,7 +45,7 @@ class CrudController extends Controller
             'price' => $request->price,
             'detailes' => $request->detailes,
         ]);
-        
+
         return redirect()->back()->with('success', 'The offer added successfully!!');
     }
 
@@ -57,12 +57,12 @@ class CrudController extends Controller
         $path = $folder;
 
         $photo->move($path, $file_name);
-        
+
         return $file_name;
-    }*/ 
+    }*/
 
     public function getOffers(){
-        
+
       $offers = Offer::select()->get()->all();
       return view('offers.showOffers', compact('offers'));
     }
@@ -96,7 +96,7 @@ class CrudController extends Controller
         $offer -> delete();
         return redirect()-> route('getAllOffers') -> with(['success' => 'The offer has been deleted successfully!!']);
     }
-    
+
 
     public function getVideo(){
 
