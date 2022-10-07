@@ -50,7 +50,6 @@ class OfferController extends Controller
         return response()->json([
             'status' => true,
             'msg' => 'deleted successfully',
-            'data' => $request -> id
         ]);
 
     }
@@ -58,5 +57,43 @@ class OfferController extends Controller
     public function all(){
         $offers = Offer::select()->get();
         return view('ajaxOffers.all', compact('offers'));
+    }
+
+    public function update(Request $request){
+
+
+        $offer = Offer::find($request->offer_id);
+        if(!$offer)
+            return 'np';
+
+        $file_name = $this->saveImage($request->photo, 'images/offers');
+
+        $validData = [
+            'photo'=> $file_name,
+            'name' => $request -> name,
+            'price' => $request -> price,
+            'detailes' => $request -> detailes
+        ];
+
+        $offer -> update($validData);
+        return response()->json([
+            'status' => true,
+            'msg' => 'updated successfully',
+        ]);
+    }
+
+
+
+    public function edit($offer_id){
+        //Offer::findOrFail($offer_id);
+
+        $offer = Offer::find($offer_id);
+        if(!$offer)
+            return response()->json([
+                'status' => true,
+            ]);
+
+        $Offer = Offer::select('name', 'price', 'detailes')->find($offer_id);
+        return view('ajaxOffers.edit', compact('offer'));
     }
 }

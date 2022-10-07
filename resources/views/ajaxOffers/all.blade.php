@@ -19,14 +19,15 @@
         </thead>
         <tbody>
         @foreach($offers as $offer)
-            <tr class="offerRow{{$offer->id}}">
+            <tr>
                 <th scope="row">{{$offer->id}}</th>
                 <td>{{$offer->name}}</td>
                 <td>{{$offer->price}}</td>
                 <td>{{$offer->detailes}}</td>
-                <td><img  style="width: 100px; height: 100px;" src="{{asset('images/offers/'.$offer->photo)}}"></td>
+                <td><img  style="width: 90px; height: 90px;" src="{{asset('images/offers/'.$offer->photo)}}"></td>
                 <td>
-                    <a class="btn btn-dark" href="{{route('offers.edit',$offer->id)}}">Edit</a>
+                    <br>
+                    <a class="btn btn-dark" href="{{route('ajax.offers.edit',$offer->id)}}">Edit</a>
                     <a  offer_id="{{$offer->id}}" class="delete_btn btn btn-danger" href="{{route('offers.delete',$offer->id)}}">Delete</a>
                 </td>
             </tr>
@@ -43,6 +44,7 @@
                     e.preventDefault();
 
                    var offer_id = $(this).attr('offer_id');
+                   var $tr = $(this).closest('tr');
 
                     $.ajax({
                         type: 'post',
@@ -56,9 +58,11 @@
                             if (data.status == true) {
                                 $('#success_msg').show();
                             }
-                            //Not working
-                            $('.offerRow'+data).remove();
-                            //
+                            //Stackoverflow
+                            $tr.find('td').fadeOut(500,function(){
+                                $tr.remove();
+                            });
+
                         }, error: function (reject) {
 
                         }
