@@ -2,6 +2,7 @@
 
 @section('content')
 
+
     <div class="alert alert-success" id="success_msg" style="display:none">
         deleted Successfully
     </div>

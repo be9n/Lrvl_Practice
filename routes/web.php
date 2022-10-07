@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\CustomAuthController;
 use App\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OfferController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -11,8 +13,8 @@ use App\Http\Controllers\OfferController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider within a group, which
+| contains the “web” middleware group. Now create something great!
 |
 */
 
@@ -35,11 +37,12 @@ Route::group(['prefix'=> 'offers'], function(){
 });
 Route::get('video', [CrudController::class, 'getVideo'])->middleware('auth');
 });
+Route::get('dashboard', function (){
+   return 'Not adult';
+})->name('dashboard');
 
 
 ################ Begin Ajax routes ################
-
-
 Route::group(['prefix' => 'ajaxOffers'], function(){
     Route::get('create', [OfferController::class, 'create'])->name('ajax.offers.create');;
     Route::post('store', [OfferController::class, 'store'])->name('ajax.offers.store');
@@ -48,3 +51,11 @@ Route::group(['prefix' => 'ajaxOffers'], function(){
     Route::get('edit/{offer_id}', [OfferController::class, 'edit'])->name('ajax.offers.edit');
     Route::post('update', [OfferController::class, 'update'])->name('ajax.offers.update');
 });
+################ End Ajax routes ################
+
+
+################ Begin Authentication && Guards ################
+Route::group(['middleware' => 'CheckAge'], function(){
+Route::get('adult', [CustomAuthController::class, 'adult'])->name('adult');
+});
+################ End Authentication && Guards ################
