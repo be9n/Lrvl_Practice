@@ -20,7 +20,7 @@ class CheckAge
 
         $age = Auth::user()->age;
         if($age < 15){
-            return redirect()->route('dashboard');
+            return redirect()->route('not.adult');
         }
 
         return $next($request);

@@ -39,7 +39,7 @@ Route::get('video', [CrudController::class, 'getVideo'])->middleware('auth');
 });
 Route::get('dashboard', function (){
    return 'Not adult';
-})->name('dashboard');
+})->name('not.adult');
 
 
 ################ Begin Ajax routes ################
@@ -58,4 +58,11 @@ Route::group(['prefix' => 'ajaxOffers'], function(){
 Route::group(['middleware' => 'CheckAge'], function(){
 Route::get('adult', [CustomAuthController::class, 'adult'])->name('adult');
 });
+
+Route::get('site', [CustomAuthController::class, 'site'])->middleware('auth:web')->name('site');
+Route::get('admin', [CustomAuthController::class, 'admin'])->middleware('auth:admin')->name('admin');
+
+Route::get('adminLogin', [CustomAuthController::class, 'adminLogin'])->name('admin.login');
+Route::get('admin/login', [CustomAuthController::class, 'checkAdminLogin'])->name('check.admin.login');
+
 ################ End Authentication && Guards ################
