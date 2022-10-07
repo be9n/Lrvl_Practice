@@ -80,10 +80,12 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      
+
     </ul>
 
-    
+      <a type="button" class="btn btn-dark" href="{{route('ajax.offers.create')}}">create offers</a>
+      <tr></tr>
+      <a type="button" class="btn btn-dark" href="{{route('ajax.offers.all')}}">all offers</a>
   </div>
 </nav>
 

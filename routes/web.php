@@ -25,20 +25,24 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function(){
 Route::group(['prefix'=> 'offers'], function(){
     //Route::get('store', [CrudController::class, 'store']);
-    
+
         Route::get('create', [CrudController::class, 'create'])->name('offers.create');
         Route::get('all', [CrudController::class, 'getOffers'])->name('getAllOffers');
         Route::post('store', [CrudController::class, 'store'])->name('Offers.store');
         Route::get('delete/{offer_id}', [CrudController::class, 'deleteOffers'])->name('offers.delete');
         Route::get('edit/{offer_id}', [CrudController::class, 'editOffers'])->name('offers.edit');
-        Route::post('update/{offer_id}', [CrudController::class, 'updateOffers'])->name('offers.update');       
+        Route::post('update/{offer_id}', [CrudController::class, 'updateOffers'])->name('offers.update');
 });
 Route::get('video', [CrudController::class, 'getVideo'])->middleware('auth');
 });
 
 
 ################ Begin Ajax routes ################
+
+
 Route::group(['prefix' => 'ajaxOffers'], function(){
-    Route::get('create', [OfferController::class, 'create']);
+    Route::get('create', [OfferController::class, 'create'])->name('ajax.offers.create');;
     Route::post('store', [OfferController::class, 'store'])->name('ajax.offers.store');
+    Route::get('all', [OfferController::class, 'all'])->name('ajax.offers.all');
+    Route::post('delete', [OfferController::class, 'delete'])->name('ajax.offers.delete');
 });

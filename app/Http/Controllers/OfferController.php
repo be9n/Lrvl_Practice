@@ -40,4 +40,23 @@ class OfferController extends Controller
             ]);
         }
     }
+
+    public function delete(Request $request){
+        $offer = Offer::find($request->id);
+
+
+        $offer -> delete();
+
+        return response()->json([
+            'status' => true,
+            'msg' => 'deleted successfully',
+            'data' => $request -> id
+        ]);
+
+    }
+
+    public function all(){
+        $offers = Offer::select()->get();
+        return view('ajaxOffers.all', compact('offers'));
+    }
 }
