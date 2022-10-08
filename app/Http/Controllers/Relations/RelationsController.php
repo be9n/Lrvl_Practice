@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Relations;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
+use App\Models\Hospital;
 use App\Models\Phone;
 use App\Models\User;
 
@@ -48,5 +50,13 @@ class RelationsController extends Controller
         $user = User::whereDoesntHave('mobile') -> get();
 
         return $user;
+    }
+
+    public function hasMany(){
+        $hospital = Hospital::with('doctors')->get();
+        return $hospital;
+
+      /*  $doctor =Doctor::with('hospital')->find(3);
+        return $doctor -> hospital -> adress;*/
     }
 }

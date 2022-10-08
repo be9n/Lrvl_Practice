@@ -75,4 +75,6 @@ Route::get('hasOneReverse', [RelationsController::class, 'hasOneReveres']);
 
 Route::get('userHasPhone', [RelationsController::class, 'userHasPhone']);
 Route::get('userDontHavePhone', [RelationsController::class, 'userDontHavePhone']);
+
+Route::get('hasMany', [RelationsController::class, 'hasMany']);
 ################ End relations routes ######################
