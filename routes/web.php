@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\Auth\CustomAuthController;
 use App\Http\Controllers\CrudController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\Relations\RelationsController;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -66,3 +67,12 @@ Route::get('adminLogin', [CustomAuthController::class, 'adminLogin'])->name('adm
 Route::get('admin/login', [CustomAuthController::class, 'checkAdminLogin'])->name('check.admin.login');
 
 ################ End Authentication && Guards ################
+
+
+################ Begin relations routes ######################
+Route::get('hasOne', [RelationsController::class, 'hasOne']);
+Route::get('hasOneReverse', [RelationsController::class, 'hasOneReveres']);
+
+Route::get('userHasPhone', [RelationsController::class, 'userHasPhone']);
+Route::get('userDontHavePhone', [RelationsController::class, 'userDontHavePhone']);
+################ End relations routes ######################

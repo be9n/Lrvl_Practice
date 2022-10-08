@@ -36,6 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+
     ];
 
     /**
@@ -46,4 +47,11 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    ########################## Relations ############################
+    public function mobile(){                                 // Default tableName_id
+        return $this -> hasOne('App\Models\Phone', 'user_id');
+    }
+    ########################## Relations ############################
+
 }

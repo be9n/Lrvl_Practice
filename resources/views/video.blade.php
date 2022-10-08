@@ -64,7 +64,7 @@
         </style>
     </head>
     <body>
-       
+
 
             <div class="content">
                 <div class="title m-b-md">
@@ -75,6 +75,5 @@
                 <div class="links">
                 </div>
             </div>
-        </div>
     </body>
 </html>
