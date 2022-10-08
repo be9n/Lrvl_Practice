@@ -15,7 +15,7 @@ class Hospital extends Model
 
     protected $fillable = [
         'name',
-        'adress',
+        'address',
         'created_at',
         'updated_at',
     ];

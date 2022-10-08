@@ -53,10 +53,42 @@ class RelationsController extends Controller
     }
 
     public function hasMany(){
-        $hospital = Hospital::with('doctors')->get();
+      /*  $hospital = Hospital::with('doctors')->get();
         return $hospital;
+        $hospital = Hospital::find(2);
+        return $hospital->doctors;*/
 
-      /*  $doctor =Doctor::with('hospital')->find(3);
-        return $doctor -> hospital -> adress;*/
+
+       /* $hospital = Hospital::with('doctors')->find(2);
+        return $hospital->doctors -> find(4) -> name;*/
+
+
+      /*  $doctor =Doctor::with('hospital')->find(4);
+        return $doctor -> hospital ->name;*/
+
+
+        /*$hospital = Hospital::with('doctors') -> find(1);
+        $doctors = $hospital -> doctors;
+
+        foreach ($doctors as $doctor){
+            echo $doctor -> name.'<br>';
+        }*/
+
+        $doctor = Doctor::find(3);
+        return $doctor -> hospital -> name;
+
+    }
+
+    public function showHospitals(){
+        $hospitals = Hospital::get();
+        return view('hospitals.showHospitals', compact('hospitals'));
+    }
+
+    public function showDoctors($hospital_id){
+        $hospital = Hospital::find($hospital_id);
+
+        $doctors = $hospital -> doctors;
+        $doctors -> makeHidden(['hospital_id']);
+        return view('hospitals.doctors.showDoctors', compact('doctors'));
     }
 }
