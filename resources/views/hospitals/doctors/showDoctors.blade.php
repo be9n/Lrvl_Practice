@@ -10,6 +10,7 @@
             <th scope="col">Title</th>
             <th scope="col">Gender</th>
             <th scope="col">Operation</th>
+            <th> <a type="button" class="btn btn-dark" href="{{route('showHospitals')}}">Hospitals</a></th>
         </tr>
         </thead>
         <tbody>
@@ -25,8 +26,7 @@
                     <td>Female</td>
                 @endif
                 <td>
-                    <a type="button" class="btn btn-dark" href="{{route('showHospitals')}}">Hospitals</a>
-                    {{-- <a type="button" class="btn btn-danger" href="{{route('offers.delete',$offer->id)}}">Delete</a>--}}
+                    <a type="button" class="btn btn-primary" href="{{route('showServices', $doctor->id)}}">Show services</a>
                 </td>
             </tr>
         @endforeach

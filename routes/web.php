@@ -83,6 +83,9 @@ Route::get('hasMany', [RelationsController::class, 'hasMany']);
 
 Route::get('showHospitals', [RelationsController::class, 'showHospitals'])->name('showHospitals');
 Route::get('showDoctors/{hospital_id}', [RelationsController::class, 'showDoctors'])->name('showDoctors');
+Route::get('showServices/{doctor_id}', [RelationsController::class, 'showServices'])->name('showServices');
+Route::get('deleteService/{service_id}/{doctor_id}', [RelationsController::class, 'deleteService'])->name('deleteService');
+Route::get('addService/{service_id}/{doctor_id}', [RelationsController::class, 'addService'])->name('addService');
 
 Route::post('deleteHospital', [RelationsController::class, 'deleteHospital'])->name('deleteHospital');
 

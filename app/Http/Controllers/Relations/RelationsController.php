@@ -127,4 +127,35 @@ class RelationsController extends Controller
         }])->find(1);
         return $doctor;
     }
+
+    public function showServices($doctor_id){
+        $data['doctor'] = Doctor::with('services')->find($doctor_id);
+        $data['services'] = $data['doctor']->services;
+
+        $emptyServices = Service::whereDoesntHave('doctors', function ($q) use ($doctor_id) {
+            $q -> where('doctors.id', $doctor_id);
+        })->get();
+
+        $hospital_id = $data['doctor'] -> hospital -> id;
+        return view('hospitals.doctors.services.services', compact('data','emptyServices', 'doctor_id','hospital_id'));
+    }
+
+    public function addService($service_id, $doctor_id){
+        $doctor = Doctor::find($doctor_id);
+        if(!$doctor_id)
+            return abort('404');
+
+
+        $doctor -> services() -> attach($service_id);
+        return redirect()->back();
+    }
+
+    public function deleteService($service_id, $doctor_id){
+        $service = Service::find($service_id);
+        if(!$service_id)
+            return abort('404');
+
+        if($service -> doctors()->detach($doctor_id))
+        return redirect() -> back();
+    }
 }
