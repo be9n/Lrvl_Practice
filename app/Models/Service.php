@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Doctor extends Model
+class Service extends Model
 {
     use HasFactory;
 
-    protected $table = 'doctors';
+    protected $table = 'services';
     public $timestamps = true;
 
     protected $fillable = [
         'name',
-        'title',
-        'gender',
-        'hospital_id',
         'created_at',
         'updated_at',
     ];
@@ -27,11 +24,8 @@ class Doctor extends Model
         'pivot',
     ];
 
-    public function Hospital(){
-        return $this -> belongsTo('App\Models\Hospital', 'hospital_id', 'id');
-    }
 
-    public function services(){
-        return $this->belongsToMany('App\Models\Service', 'doctor_service', 'doctor_id', 'service_id');
+    public function doctors(){
+        return $this -> belongsToMany('App\Models\Doctor', 'doctor_service', 'service_id', 'doctor_id');
     }
 }

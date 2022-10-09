@@ -59,7 +59,7 @@ class OfferController extends Controller
         return view('ajaxOffers.all', compact('offers'));
     }
 
-    public function update(Request $request){
+    public function update1(Request $request){
 
 
         $offer = Offer::find($request->offer_id);

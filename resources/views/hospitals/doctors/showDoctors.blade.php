@@ -8,6 +8,7 @@
             <th scope="col">Id</th>
             <th scope="col">Name</th>
             <th scope="col">Title</th>
+            <th scope="col">Gender</th>
             <th scope="col">Operation</th>
         </tr>
         </thead>
@@ -18,6 +19,11 @@
                 <th scope="row">{{$doctor->id}}</th>
                 <td>{{$doctor->name}}</td>
                 <td>{{$doctor->title}}</td>
+                @if($doctor -> gender == 1)
+                <td>Male</td>
+                @elseif($doctor -> gender == 2)
+                    <td>Female</td>
+                @endif
                 <td>
                     <a type="button" class="btn btn-dark" href="{{route('showHospitals')}}">Hospitals</a>
                     {{-- <a type="button" class="btn btn-danger" href="{{route('offers.delete',$offer->id)}}">Delete</a>--}}

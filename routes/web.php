@@ -50,7 +50,7 @@ Route::group(['prefix' => 'ajaxOffers'], function(){
     Route::get('all', [OfferController::class, 'all'])->name('ajax.offers.all');
     Route::post('delete', [OfferController::class, 'delete'])->name('ajax.offers.delete');
     Route::get('edit/{offer_id}', [OfferController::class, 'edit'])->name('ajax.offers.edit');
-    Route::post('update', [OfferController::class, 'update'])->name('ajax.offers.update');
+    Route::post('update', [OfferController::class, 'update1'])->name('ajax.offers.update');
 });
 ################ End Ajax routes ################
 
@@ -83,3 +83,9 @@ Route::get('hasMany', [RelationsController::class, 'hasMany']);
 
 Route::get('showHospitals', [RelationsController::class, 'showHospitals'])->name('showHospitals');
 Route::get('showDoctors/{hospital_id}', [RelationsController::class, 'showDoctors'])->name('showDoctors');
+
+Route::post('deleteHospital', [RelationsController::class, 'deleteHospital'])->name('deleteHospital');
+
+
+Route::get('doctors/services', [RelationsController::class, 'getDoctorServices']);
+

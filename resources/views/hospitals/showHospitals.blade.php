@@ -8,6 +8,7 @@
             <th scope="col">Id</th>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
+            <th scope="col">Doctor count</th>
             <th scope="col">Operation</th>
         </tr>
         </thead>
@@ -18,9 +19,14 @@
                 <th scope="row">{{$hospital->id}}</th>
                 <td>{{$hospital->name}}</td>
                 <td>{{$hospital->address}}</td>
+                @if($hospital->doctors->count() < 2 && $hospital->doctors->count() > 0)
+                <td>({{$hospital->doctors->count()}}) Doctor</td>
+                @else($hospital->doctors->count() >= 2)
+                    <td>({{$hospital->doctors->count()}}) Doctors</td>
+                @endif
                 <td>
                     <a  class="btn btn-dark" href="{{route('showDoctors', $hospital->id)}}">Show doctors</a>
-                    {{-- <a type="button" class="btn btn-danger" href="{{route('offers.delete',$offer->id)}}">Delete</a>--}}
+                    <a hospital_id = "{{$hospital->id}}" class="delete_btn btn btn-danger">Delete</a>
                 </td>
             </tr>
         @endforeach
@@ -37,4 +43,39 @@
         </div>
     @endif
 
+@stop
+
+@section('scripts')
+
+    <script>
+        $(document).on('click', '.delete_btn', function (e) {
+            e.preventDefault();
+
+            var hospital_id = $(this).attr('hospital_id');
+            var $tr = $(this).closest('tr');
+
+            $.ajax({
+                type: 'post',
+                enctype: 'multipart/form-data',
+                url: "{{route('deleteHospital')}}",
+                data: {
+                    '_token': "{{csrf_token()}}",
+                    'id':hospital_id
+                },
+                success: function (data) {
+                    if (data.status == true) {
+                        $('#success_msg').show();
+                    }
+                    //Stackoverflow
+
+                    $tr.find('td').fadeOut(500,function(){
+                        $tr.remove();
+                    });
+
+                }, error: function (reject) {
+
+                }
+            });
+        });
+    </script>
 @stop

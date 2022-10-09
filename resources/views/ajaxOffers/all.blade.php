@@ -60,6 +60,7 @@
                                 $('#success_msg').show();
                             }
                             //Stackoverflow
+
                             $tr.find('td').fadeOut(500,function(){
                                 $tr.remove();
                             });

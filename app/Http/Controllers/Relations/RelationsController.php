@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\Hospital;
 use App\Models\Phone;
+use App\Models\Service;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class RelationsController extends Controller
 {
@@ -80,15 +82,49 @@ class RelationsController extends Controller
     }
 
     public function showHospitals(){
+        // Show the hospitals that has male doctors
+       /* $hospitals = Hospital::whereHas('doctors', function ($q){
+            $q -> where('gender', '1');
+        })->get();*/
+
+        // Show the hospitals that has just female doctors
+       /* $hospitals = Hospital::whereDoesntHave('doctors', function ($q){
+            $q -> where('gender', '1');
+        })->get();*/
+
         $hospitals = Hospital::get();
+
         return view('hospitals.showHospitals', compact('hospitals'));
+
+
     }
 
     public function showDoctors($hospital_id){
         $hospital = Hospital::find($hospital_id);
 
+        // Show the male doctors
+        //$doctors = $hospital -> doctors -> where('gender', '0');
+
         $doctors = $hospital -> doctors;
         $doctors -> makeHidden(['hospital_id']);
         return view('hospitals.doctors.showDoctors', compact('doctors'));
+    }
+
+    public function deleteHospital(Request $request){
+       $hospital = Hospital::find($request -> id);
+       if(!$hospital)
+           return abort('404');
+
+       $hospital -> doctors() -> delete();
+       $hospital -> delete();
+    }
+
+    public function getDoctorServices(){
+       /* $service = Service::with('doctors')->get();
+        return $service;*/
+        $doctor = Doctor::with(['services' => function($q){
+            $q -> select(['services.id', 'name']);
+        }])->find(1);
+        return $doctor;
     }
 }

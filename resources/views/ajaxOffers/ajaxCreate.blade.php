@@ -31,31 +31,31 @@
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Enter a photo</label>
                     <input type="file" class="form-control" name="photo" placeholder="Enter a photo">
-                    @error('photo')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
+
+                    <small id="photo_error" class="form-text text-danger"></small>
+
                 </div>
 
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Offer name</label>
                     <input type="text" class="form-control" name="name" placeholder="name">
-                    @error('name')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
+
+                    <small id="name_error" class="form-text text-danger"></small>
+
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Offer price</label>
                     <input type="text" class="form-control" name="price" placeholder="price">
-                    @error('price')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
+
+                    <small id="price_error" class="form-text text-danger"></small>
+
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Offer detailes</label>
                     <input type="text" class="form-control" name="detailes" placeholder="detailes">
-                    @error('detailes')
-                    <small class="form-text text-danger">{{$message}}</small>
-                    @enderror
+
+                    <small id="detailes_error" class="form-text text-danger"></small>
+
                 </div>
                 <button id="save_offer" class="btn btn-primary">Save Offer</button>
             </form>
@@ -68,6 +68,10 @@
                     $(document).on('click', '#save_offer', function (e) {
                         e.preventDefault();
 
+                        $('#photo_error').text('');
+                        $('#name_error').text('');
+                        $('#price_error').text('');
+                        $('#detailes_error').text('');
                         var formData = new FormData($('#offerForm')[0]);
 
                         $.ajax({
@@ -82,10 +86,12 @@
                                 if (data.status == true) {
                                     $('#success_msg').show();
                                 }
-
                             },
                             error: function (reject) {
-
+                                var response = $.parseJSON(reject.responseText);
+                                $.each(response.errors, function (key, val){
+                                   $("#" + key + "_error").text(val[0]);
+                                });
                             }
                         });
                     });

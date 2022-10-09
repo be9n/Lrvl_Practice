@@ -26,6 +26,7 @@ class OfferRequest extends FormRequest
         return $rules = [
             'name' => 'required|max:100|unique:offers,name',
             'price' => 'required|numeric',
+            'photo' => 'required',
         ];
     }
 
@@ -34,7 +35,8 @@ class OfferRequest extends FormRequest
         return $messages = [
             'name.required' => trans('messages.offer name required'),
             'price.required' => __('messages.offer price required'),
-            'price.numeric' => __('messages.offer price numeric')
+            'price.numeric' => __('messages.offer price numeric'),
+            'photo.required' => __('messages.offer photo required'),
         ];
     }
 }
