@@ -33,15 +33,29 @@
         @endif
         </tbody>
     </table>
-    @if(Session::has('success'))
-        <div class="alert alert-primary" role="alert">
-            {{Session::get('success')}}
-        </div>
-    @elseif(Session::has('fail'))
-        <div class="alert alert-danger" role="alert">
-            {{Session::get('fail')}}
-        </div>
-    @endif
+
+    <div class="container">
+        <form method="POST" action="{{route('addHospital')}}" enctype="multipart/form-data">
+            @csrf
+            {{--<input name = "_token" value = "{{csrf_token()}}">--}}
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Hospital name</label>
+                <input type="text" class="form-control" name="name" placeholder="name">
+
+                <small id="name_error" class="form-text text-danger"></small>
+
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Hospital address</label>
+                <input type="text" class="form-control" name="address" placeholder="address">
+
+                <small id="price_error" class="form-text text-danger"></small>
+
+            </div>
+            <button id="save_offer" class="btn btn-primary">Add Hospital</button>
+        </form>
+    </div>
 
 @stop
 

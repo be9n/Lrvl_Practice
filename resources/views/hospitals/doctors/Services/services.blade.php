@@ -29,13 +29,32 @@
 
         </tbody>
     </table>
-    <td> <a class="btn btn-dark" href="{{route('showDoctors', $hospital_id)}}">Doctors</a></td>
+    <td> <a class="btn btn-dark" href="{{route('showDoctors', $data['hospital_id'])}}">Doctors</a></td>
     <br>
     <br>
     <br>
     <br>
     <br>
     <br>
+
+    <div class="container">
+        <form method="POST" action="{{route('addSelectService',$doctor_id)}}">
+            @csrf
+    <div class="form-group">
+        <label for="exampleInputEmail">Choose the service</label>
+
+        <select class="form-control" name="servicesIds[]" multiple>
+            @foreach($data['emptyServices'] as $emptyService)
+                <option value="{{$emptyService->id}}">{{$emptyService -> name}}</option>
+            @endforeach
+        </select>
+    </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+
+
+
     <table class="table">
         <thead>
         <tr>
@@ -46,8 +65,8 @@
         </tr>
         </thead>
         <tbody>
-        @if(isset($emptyServices) && $emptyServices->count() > 0)
-            @foreach($emptyServices as $emptyService)
+        @if(isset($data['emptyServices']) && $data['emptyServices']->count() > 0)
+            @foreach($data['emptyServices'] as $emptyService)
                 <tr>
                     <th scope="row"></th>
                     <th scope="row">{{$emptyService->id}}</th>
@@ -61,14 +80,5 @@
 
         </tbody>
     </table>
-    @if(Session::has('success'))
-        <div class="alert alert-primary" role="alert">
-            {{Session::get('success')}}
-        </div>
-    @elseif(Session::has('fail'))
-        <div class="alert alert-danger" role="alert">
-            {{Session::get('fail')}}
-        </div>
-    @endif
 
 @stop

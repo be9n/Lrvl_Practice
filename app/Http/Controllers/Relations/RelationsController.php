@@ -107,7 +107,7 @@ class RelationsController extends Controller
 
         $doctors = $hospital -> doctors;
         $doctors -> makeHidden(['hospital_id']);
-        return view('hospitals.doctors.showDoctors', compact('doctors'));
+        return view('hospitals.doctors.showDoctors', compact('doctors', 'hospital_id'));
     }
 
     public function deleteHospital(Request $request){
@@ -115,7 +115,7 @@ class RelationsController extends Controller
        if(!$hospital)
            return abort('404');
 
-       $hospital -> doctors() -> delete();
+
        $hospital -> delete();
     }
 
@@ -132,12 +132,11 @@ class RelationsController extends Controller
         $data['doctor'] = Doctor::with('services')->find($doctor_id);
         $data['services'] = $data['doctor']->services;
 
-        $emptyServices = Service::whereDoesntHave('doctors', function ($q) use ($doctor_id) {
+        $data['emptyServices'] = Service::whereDoesntHave('doctors', function ($q) use ($doctor_id) {
             $q -> where('doctors.id', $doctor_id);
         })->get();
-
-        $hospital_id = $data['doctor'] -> hospital -> id;
-        return view('hospitals.doctors.services.services', compact('data','emptyServices', 'doctor_id','hospital_id'));
+        $data['hospital_id'] = $data['doctor'] -> hospital -> id;
+        return view('hospitals.doctors.services.services', compact('data','doctor_id'));
     }
 
     public function addService($service_id, $doctor_id){
@@ -150,6 +149,17 @@ class RelationsController extends Controller
         return redirect()->back();
     }
 
+    public function addSelectService(Request $request, $doctor_id){
+
+        $doctor = Doctor::find($doctor_id);
+        if(!$doctor_id)
+            return abort('404');
+
+
+        $doctor -> services() -> attach($request -> servicesIds);
+        return redirect()->back();
+    }
+
     public function deleteService($service_id, $doctor_id){
         $service = Service::find($service_id);
         if(!$service_id)
@@ -157,5 +167,31 @@ class RelationsController extends Controller
 
         if($service -> doctors()->detach($doctor_id))
         return redirect() -> back();
+    }
+
+    public function addDoctors(Request $request){
+
+        if(Doctor::create($request -> all())) {
+            return redirect() -> back();
+        }else{
+            return 'hata';
+        }
+    }
+
+    public function deleteDoctor($doctor_id){
+        $doctor = Doctor::find($doctor_id);
+       if($doctor->delete()){
+           return redirect() -> back();
+       }else{
+           return 'hata';
+       }
+    }
+
+    public function addHospital(Request $request){
+        if(Hospital::create($request -> all())) {
+            return redirect() -> back();
+        }else{
+            return 'hata';
+        }
     }
 }

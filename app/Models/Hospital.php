@@ -26,6 +26,13 @@ class Hospital extends Model
     ];
     public function doctors(){
         return $this -> hasMany('App\Models\Doctor', 'hospital_id', 'id');
+    }
 
+    public function delete()
+    {
+        foreach ($this->doctors as $doctor) {
+            $doctor->delete();
+        }
+        return parent::delete();
     }
 }
