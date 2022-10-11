@@ -145,7 +145,7 @@ class RelationsController extends Controller
             return abort('404');
 
 
-        $doctor -> services() -> attach($service_id);
+        $doctor -> services() -> syncWithoutDetaching($service_id);
         return redirect()->back();
     }
 
@@ -156,7 +156,7 @@ class RelationsController extends Controller
             return abort('404');
 
 
-        $doctor -> services() -> attach($request -> servicesIds);
+        $doctor -> services() -> syncWithoutDetaching($request -> servicesIds);
         return redirect()->back();
     }
 
