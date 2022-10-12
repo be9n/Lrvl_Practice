@@ -96,3 +96,5 @@ Route::post('deleteHospital', [RelationsController::class, 'deleteHospital'])->n
 
 Route::get('doctors/services', [RelationsController::class, 'getDoctorServices']);
 
+Route::get('doctorPatient', [RelationsController::class, 'doctorPatient']) -> name('doctorPatient');
+

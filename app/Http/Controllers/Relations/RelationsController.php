@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Relations;
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\Hospital;
+use App\Models\Medical;
+use App\Models\Patient;
 use App\Models\Phone;
 use App\Models\Service;
 use App\Models\User;
@@ -193,5 +195,10 @@ class RelationsController extends Controller
         }else{
             return 'hata';
         }
+    }
+
+    public function doctorPatient(){
+        $patient = Patient::with('doctor') -> find('1');
+        return $patient;
     }
 }

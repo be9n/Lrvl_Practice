@@ -17,6 +17,7 @@ class Doctor extends Model
         'title',
         'gender',
         'hospital_id',
+        'medical_id',
         'created_at',
         'updated_at',
     ];
@@ -35,9 +36,11 @@ class Doctor extends Model
         return $this->belongsToMany('App\Models\Service', 'doctor_service', 'doctor_id', 'service_id');
     }
 
+
     public function delete()
     {
         $this->services()->detach();
         return parent::delete();
     }
+
 }
