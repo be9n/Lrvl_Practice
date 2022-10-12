@@ -63,7 +63,8 @@ class CrudController extends Controller
 
     public function getOffers(){
 
-      $offers = Offer::select()->get()->all();
+      $offers = Offer::select()->get();
+
       return view('offers.showOffers', compact('offers'));
     }
 

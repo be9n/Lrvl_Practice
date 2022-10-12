@@ -7,18 +7,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\Relations\RelationsController;
 use Illuminate\Support\Facades\Route;
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group, which
-| contains the “web” middleware group. Now create something great!
-|
-*/
-
+define('PAGINATION_COUNT', 5);
 
 
 Auth::routes(['verify' => true]);
@@ -51,6 +40,7 @@ Route::group(['prefix' => 'ajaxOffers'], function(){
     Route::post('delete', [OfferController::class, 'delete'])->name('ajax.offers.delete');
     Route::get('edit/{offer_id}', [OfferController::class, 'edit'])->name('ajax.offers.edit');
     Route::post('update', [OfferController::class, 'update1'])->name('ajax.offers.update');
+    Route::get('getAllInactiveOffers', [OfferController::class, 'getAllInactiveOffers']);
 });
 ################ End Ajax routes ################
 
@@ -97,4 +87,13 @@ Route::post('deleteHospital', [RelationsController::class, 'deleteHospital'])->n
 Route::get('doctors/services', [RelationsController::class, 'getDoctorServices']);
 
 Route::get('doctorPatient', [RelationsController::class, 'doctorPatient']) -> name('doctorPatient');
+
+Route::get('countryDoctors', [RelationsController::class, 'countryDoctors']) -> name('countryDoctors');
+
+
+
+
+Route::get('accessors', [RelationsController::class, 'getDoctors']);
+
+
 

@@ -5,25 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Patient extends Model
+class Country extends Model
 {
     use HasFactory;
 
-    protected $table = 'patients';
+    protected $table = 'countries';
     public $timestamps = false;
 
     protected $fillable = [
         'name',
-        'age',
-        'medical_id',
     ];
 
     protected $hidden = [
     ];
 
-    //has one through
-    public function doctor(){
-        return $this -> hasOneThrough('App\Models\Doctor','App\Models\Medical','patient_id','medical_id');
+    public function doctors(){
+        return $this->hasManyThrough('App\Models\Doctor', 'App\Models\Hospital');
     }
-
 }

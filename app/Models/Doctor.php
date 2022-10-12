@@ -28,6 +28,10 @@ class Doctor extends Model
         'pivot',
     ];
 
+    public function scopeMale(){
+        return $this -> where('gender', 1);
+    }
+
     public function Hospital(){
         return $this -> belongsTo('App\Models\Hospital', 'hospital_id', 'id');
     }
@@ -36,11 +40,22 @@ class Doctor extends Model
         return $this->belongsToMany('App\Models\Service', 'doctor_service', 'doctor_id', 'service_id');
     }
 
+    public function patients(){
+        return $this -> hasManyThrough('App\Models\Patient', 'App\Models\Medical', 'doctor_id', 'medical_id');
+    }
 
     public function delete()
     {
         $this->services()->detach();
         return parent::delete();
     }
+
+    //accessor
+    public function getGenderAttribute($val){
+        return $val == 1 ? 'male' : 'female';
+    }
+
+
+
 
 }

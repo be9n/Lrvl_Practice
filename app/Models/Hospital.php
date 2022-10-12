@@ -16,6 +16,7 @@ class Hospital extends Model
     protected $fillable = [
         'name',
         'address',
+        'country_id',
         'created_at',
         'updated_at',
     ];
@@ -35,4 +36,6 @@ class Hospital extends Model
         }
         return parent::delete();
     }
+
+
 }

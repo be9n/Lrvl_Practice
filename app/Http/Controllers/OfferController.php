@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OfferRequest;
 use App\Models\Offer;
+use App\Models\Scopes\OfferScope;
 use App\Traits\OfferTrait;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class OfferController extends Controller
 
        $offer = Offer::create([
             'photo' => $file_name,
-            'name' => $request->name,
+            'name' =>  $request->name,
             'price' => $request->price,
             'detailes' => $request->detailes,
         ]);
@@ -55,8 +56,11 @@ class OfferController extends Controller
     }
 
     public function all(){
-        $offers = Offer::select()->get();
-        return view('ajaxOffers.all', compact('offers'));
+        //$offers = Offer::select()->get();
+        $offers = Offer::select()->paginate(PAGINATION_COUNT);
+
+        return view('offers.offersPaginate', compact('offers'));
+       // return view('ajaxOffers.all', compact('offers'));
     }
 
     public function update1(Request $request){
@@ -95,5 +99,20 @@ class OfferController extends Controller
 
         $Offer = Offer::select('name', 'price', 'detailes')->find($offer_id);
         return view('ajaxOffers.edit', compact('offer'));
+    }
+
+    public function getAllInactiveOffers(){
+       // $inactiveOffers = Offer::valid()->get();
+
+                //Global scope applied
+        $inactiveOffers = Offer::get();
+
+        //$inactiveOffers = Offer::withoutGlobalScopes() -> get();
+
+        /*$inactiveOffers = Offer::withoutGlobalScopes([
+            OfferScope::class, SecondScope::class
+        ]) -> get();*/
+
+        return $inactiveOffers;
     }
 }
