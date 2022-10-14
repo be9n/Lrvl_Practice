@@ -54,7 +54,7 @@ Route::get('site', [CustomAuthController::class, 'site'])->middleware('auth:web'
 Route::get('admin', [CustomAuthController::class, 'admin'])->middleware('auth:admin')->name('admin');
 
 Route::get('adminLogin', [CustomAuthController::class, 'adminLogin'])->name('admin.login');
-Route::get('admin/login', [CustomAuthController::class, 'checkAdminLogin'])->name('check.admin.login');
+Route::get('admin/login', [CustomAuthController::class,'checkAdminLogin'])->name('check.admin.login');
 
 ################ End Authentication && Guards ################
 
