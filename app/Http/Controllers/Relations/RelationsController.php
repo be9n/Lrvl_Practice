@@ -117,8 +117,6 @@ class RelationsController extends Controller
        $hospital = Hospital::find($request -> id);
        if(!$hospital)
            return abort('404');
-
-
        $hospital -> delete();
     }
 
@@ -138,8 +136,8 @@ class RelationsController extends Controller
         $data['emptyServices'] = Service::whereDoesntHave('doctors', function ($q) use ($doctor_id) {
             $q -> where('doctors.id', $doctor_id);
         })->get();
-        $data['hospital_id'] = $data['doctor'] -> hospital -> id;
-        return view('hospitals.doctors.services.services', compact('data','doctor_id'));
+        $hospital_id = $data['doctor'] -> hospital -> id;
+        return view('hospitals.doctors.services.services', compact('data','doctor_id')) -> with('hospital_id', $hospital_id);
     }
 
     public function addService($service_id, $doctor_id){

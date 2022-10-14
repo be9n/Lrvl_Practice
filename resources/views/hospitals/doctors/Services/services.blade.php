@@ -29,7 +29,7 @@
 
         </tbody>
     </table>
-    <td> <a class="btn btn-dark" href="{{route('showDoctors', $data['hospital_id'])}}">Doctors</a></td>
+    <td> <a class="btn btn-dark" href="{{route('showDoctors', $hospital_id)}}">Doctors</a></td>
     <br>
     <br>
     <br>

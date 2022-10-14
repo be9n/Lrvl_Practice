@@ -20,11 +20,7 @@
                 <th scope="row">{{$doctor->id}}</th>
                 <td>{{$doctor->name}}</td>
                 <td>{{$doctor->title}}</td>
-                @if($doctor -> gender == 1)
-                <td>Male</td>
-                @elseif($doctor -> gender == 2)
-                    <td>Female</td>
-                @endif
+                <td>{{$doctor->gender}}</td>
                 <td>
                     <a type="button" class="btn btn-primary" href="{{route('showServices', $doctor->id)}}">Show services</a>
                     <a type="button" class="btn btn-danger" href="{{route('deleteDoctor', $doctor->id)}}">Delete doctor</a>
@@ -41,7 +37,7 @@
         @csrf
         {{--<input name = "_token" value = "{{csrf_token()}}">--}}
 
-        <input type="hidden" class="form-control" value="{{$hospital_id}}" name="hospital_id" >
+        <input type="hidden" class="form-control" value="{{$hospital_id}}" name="hospital_id">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Doctor Name</label>
             <input type="text" class="form-control" name="name" placeholder="name">
